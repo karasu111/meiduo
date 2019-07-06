@@ -4,6 +4,11 @@ from django_redis import get_redis_connection
 from django import http
 from meiduo_mall.libs.captcha.captcha import captcha
 from meiduo_mall.utils.response_code import RETCODE
+from random import randint
+import logging
+logger = logging.getLogger('django')
+from meiduo_mall.libs.yuntongxun.sms import CCP
+from . import constants
 
 # Create your views here.
 class ImageCodeView(View):
@@ -18,17 +23,23 @@ class ImageCodeView(View):
 
 class SMSCodeView(View):
     """发送短信验证码"""
-    def get(self,request,moile):
+    def get(self,request,mobile):
+        # 创建redis连接对象
+        redis_conn = get_redis_connection('verify_code')
+        send_flag = redis_conn.get('send_flag_%s'% mobile)
+        if send_flag:
+            return http.JsonResponse({'code':RETCODE.THROTTLINGERR,'errmsg':'频繁发送短信'})
         #接受前端数据
         image_code_client = request.GET.get('image_code')
         uuid = request.GET.get('uuid')
         #校验
         if all([image_code_client,uuid]) is False:
             return http.HttpResponseForbidden('缺少必传参数')
-        #创建redis连接对象
-        redis_conn = get_redis_connection('verify_code')
+
         #获取redis中图形验证码
         image_code_server = redis_conn.get(uuid)
+        #直接将redis中用过的图形验证码删除(让每一个图形验证码只用一次）
+        redis_conn.delete(uuid)
         #判断图形验证码是否过期
         if image_code_server is None:
             return http.JsonResponse({'code':RETCODE.IMAGECODEERR,'errmsg':'图形验证码过期'})
@@ -36,5 +47,18 @@ class SMSCodeView(View):
         if image_code_client.lower() != image_code_server.decode().lower():
             return http.JsonResponse({'code':RETCODE.IMAGECODEERR,'errmsg':'图形验证码输入错误'})
 
-        pass
+
+        #随机生成一个6位数字来当短信验证码
+        sms_code = '%06d' % randint(0,999999)
+        logger.info(sms_code)
+        #把短信验证码存储到redis中以备后期注册时校验
+        redis_conn.setex('sms_code_%s'% mobile,constants.SMS_CODE_EXPIRE_REDIS,sms_code)
+        #发送过短信后向redis存储一个此手机号发过短信的标记
+        redis_conn.setex('send_flag_%s'% mobile,60,1)
+
+        # 利用第三方发短信
+        CCP().send_template_sms(mobile,[sms_code,constants.SMS_CODE_EXPIRE_REDIS//60],1)
+        return http.JsonResponse({'code':RETCODE.OK,'errmsg':'ok'})
+
+
 
