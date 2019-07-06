@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views import View
 from django_redis import get_redis_connection
 from django import http
@@ -7,7 +6,7 @@ from meiduo_mall.utils.response_code import RETCODE
 from random import randint
 import logging
 logger = logging.getLogger('django')
-from meiduo_mall.libs.yuntongxun.sms import CCP
+from celery_tasks.sms.yuntongxun.sms import CCP
 from . import constants
 
 # Create your views here.
@@ -26,6 +25,7 @@ class SMSCodeView(View):
     def get(self,request,mobile):
         # 创建redis连接对象
         redis_conn = get_redis_connection('verify_code')
+        #获取此手机号是否发送过短信标记
         send_flag = redis_conn.get('send_flag_%s'% mobile)
         if send_flag:
             return http.JsonResponse({'code':RETCODE.THROTTLINGERR,'errmsg':'频繁发送短信'})
@@ -51,10 +51,14 @@ class SMSCodeView(View):
         #随机生成一个6位数字来当短信验证码
         sms_code = '%06d' % randint(0,999999)
         logger.info(sms_code)
+        #创建管道对象(管道作用:就是将多次redis指令合并到一起,一次全部执行)
+        pl = redis_conn.pipeline()
         #把短信验证码存储到redis中以备后期注册时校验
-        redis_conn.setex('sms_code_%s'% mobile,constants.SMS_CODE_EXPIRE_REDIS,sms_code)
+        pl.setex('sms_code_%s'% mobile,constants.SMS_CODE_EXPIRE_REDIS,sms_code)
         #发送过短信后向redis存储一个此手机号发过短信的标记
-        redis_conn.setex('send_flag_%s'% mobile,60,1)
+        pl.setex('send_flag_%s'% mobile,60,1)
+        #执行管道
+        pl.execute()
 
         # 利用第三方发短信
         CCP().send_template_sms(mobile,[sms_code,constants.SMS_CODE_EXPIRE_REDIS//60],1)
