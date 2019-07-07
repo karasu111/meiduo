@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os,sys
 
+
 #print(sys.path)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -211,6 +212,8 @@ LOGGING = {
 }
 #指定Django认证模块中的用户模型
 AUTH_USER_MODEL = 'users.User'
+#指定自定义认证类
+AUTHENTICATION_BACKENDS = ['users.utils.UsernameMobileAuthBackend']
 
 # import logging
 #

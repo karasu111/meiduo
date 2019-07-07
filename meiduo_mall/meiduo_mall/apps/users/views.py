@@ -78,6 +78,28 @@ class LoginView(View):
     def get(self,request):
         return render(request,'login.html')
 
+    #多账号登录不推荐版
+    # def post(self,request):
+    #     #接收前端传入的表单数据
+    #     query_dict = request.POST
+    #     username = query_dict.get('username')
+    #     password = query_dict.get('password')
+    #     remembered = query_dict.get('remembered')
+    #
+    #     #判断用户是否是用手机登录，若是的 认证时 就用手机号查询
+    #     if re.match(r'^1[3-9]\d{9}$',username):
+    #         User.USERNAME_FIELD = 'mobile'
+    #     #校验
+    #     user = authenticate(request,username=username,password=password)
+    #     User.USERNAME_FIELD = 'username'# 再改回去 以免其他用户登录出现错误
+    #     if user is None:
+    #         return render(request,'login.html',{'account_errmsg':'用户名或密码错误'})
+    #     #状态保持
+    #     login(request,user)
+    #     if remembered != 'on':
+    #         request.session.set_expiry(0)#表示会话结束后就过期
+    #     #重定向到指定页
+    #     return http.HttpResponse('登录成功,来到首页')
     def post(self,request):
         #接收前端传入的表单数据
         query_dict = request.POST
@@ -90,7 +112,7 @@ class LoginView(View):
             User.USERNAME_FIELD = 'mobile'
         #校验
         user = authenticate(request,username=username,password=password)
-        User.USERNAME_FIELD = 'username'# 再改回去 以免其他用户登录出现错误
+
         if user is None:
             return render(request,'login.html',{'account_errmsg':'用户名或密码错误'})
         #状态保持
