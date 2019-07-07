@@ -6,8 +6,9 @@ from meiduo_mall.utils.response_code import RETCODE
 from random import randint
 import logging
 logger = logging.getLogger('django')
-from celery_tasks.sms.yuntongxun.sms import CCP
+# from celery_tasks.sms.yuntongxun.sms import CCP
 from . import constants
+from celery_tasks.sms.tasks import send_sms_code
 
 # Create your views here.
 class ImageCodeView(View):
@@ -61,7 +62,8 @@ class SMSCodeView(View):
         pl.execute()
 
         # 利用第三方发短信
-        CCP().send_template_sms(mobile,[sms_code,constants.SMS_CODE_EXPIRE_REDIS//60],1)
+        # CCP().send_template_sms(mobile,[sms_code,constants.SMS_CODE_EXPIRE_REDIS//60],1)
+        send_sms_code.delay(mobile,sms_code)#触发异步任务，将异步任务添加到仓库
         return http.JsonResponse({'code':RETCODE.OK,'errmsg':'ok'})
 
 
