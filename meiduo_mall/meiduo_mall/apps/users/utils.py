@@ -1,6 +1,8 @@
 from django.contrib.auth.backends import ModelBackend
 import re
 from .models import User
+from django.conf import settings
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer,BadData
 
 
 def get_user_by_account(account):
@@ -39,3 +41,28 @@ class UsernameMobileAuthBackend(ModelBackend):
 
             #返回user对象
             return user
+
+
+def generate_verify_email_url(user):
+    """生成用户激活邮箱url"""
+    serializer = Serializer(settings.SECRET_KEY,3600*24)
+    data = {'user_id':user.id,'email':user.email}
+    token = serializer.dumps(data).decode()
+    verify_url = settings.EMAIL_VERIFY_URL + '?token=' + token
+    return verify_url
+
+
+def check_verify_email_token(token):
+    """传入token后解密后查询用户"""
+    serializer = Serializer(settings.SECRET_KEY,3600*24)
+    try:
+        data = serializer.loads(token)
+        user_id = data.get('user_id')
+        email = data.get('email')
+        try:
+            user = User.objects.get(id=user_id,email=email)
+            return user
+        except User.DoesNotExist:
+            return None
+    except BadData:
+       return None
