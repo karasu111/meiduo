@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from . import views
-
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     url(r'^register/$',views.RegisterView.as_view()),
@@ -19,4 +19,11 @@ urlpatterns = [
     url(r'^addresses/(?P<address_id>\d+)/default/$',views.DefaultAddressView.as_view()),
     url(r'^addresses/(?P<address_id>\d+)/title/$',views.UpdateTitleAddressView.as_view()),
     url(r'^password/$', views.ChangePasswordView.as_view()),
+    url(r'^browse_histories/$', views.HistoryGoodsView.as_view()),
+    url(r'^orders/info/(?P<page_num>\d+)/$',views.OrdersInfoView.as_view()),
+    url(r'^find_password/$',views.ForgetPasswordView.as_view()),
+    url(r'^accounts/(?P<username>\w+)/sms/token/$',views.InputCountView.as_view()),
+    url(r'^sms_codes/$',views.VerifyUsernameView.as_view()),
+    url(r'^authorizations/$', obtain_jwt_token),
+
 ]
