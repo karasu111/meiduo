@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.shortcuts import render
 from contents.utils import get_categories
 from .models import GoodsCategory,SKU,GoodsVisitCount
@@ -162,7 +164,7 @@ class DetailVisitView(View):
             return http.HttpResponseForbidden('category_id不存在')
         # now_date = timezone.localtime()  # 获取当前日期对象
         #获取当前时间日期对象
-        now_date = timezone
+        now_date = timezone.now()
 
         # 查询当天有没有访问过此类别商品
         try:
@@ -177,4 +179,25 @@ class DetailVisitView(View):
         goods_visit.save()
 
         return http.JsonResponse({'code':RETCODE.OK,'errmsg':'OK'})
-
+#=============================================================================
+    #教员的
+    # def post(self, request, category_id):
+    #     try:
+    #         gvc = GoodsVisitCount.objects.get(category_id=category_id)
+    #     except:
+    #         GoodsVisitCount.objects.create(
+    #             category_id=category_id,
+    #             count=1
+    #         )
+    #     else:
+    #         if gvc.create_time.date() == timezone.now().date():
+    #             gvc.count += 1
+    #             gvc.date = date.today()
+    #             gvc.save()
+    #         else:
+    #             gvc.delete()
+    #             GoodsVisitCount.objects.create(
+    #                 category_id=category_id,
+    #                 count=1
+    #             )
+    #     return http.JsonResponse({'code': RETCODE.OK, 'errmsg': 'OK'})

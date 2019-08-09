@@ -35,12 +35,35 @@ class UsernameMobileAuthBackend(ModelBackend):
         # except User.DoesNotExist:
         #     return None
 
-        user = get_user_by_account(username)
-        #判断用户密码是否正确
-        if user and user.check_password(password):
+        # user = get_user_by_account(username)
+        # #判断用户密码是否正确
+        # if user and user.check_password(password):
+        #
+        #     #返回user对象
+        #     return user
 
-            #返回user对象
+
+
+        try:
+
+            user = User.objects.get(username=username)
+        except:
+            # 如果未查到数据，则返回None，用于后续判断
+            try:
+                user = User.objects.get(mobile=username)
+            except:
+                return None
+
+        # 后台管理站点登陆的时候，不会传入request
+        if not request and not user.is_staff:
+            return None
+
+
+        # 判断密码
+        if user.check_password(password):
             return user
+        else:
+            return None
 
 
 def generate_verify_email_url(user):
@@ -68,12 +91,3 @@ def check_verify_email_token(token):
        return None
 
 
-def jwt_response_payload_handler(token, user=None, request=None):
-    """
-    自定义jwt认证成功返回数据
-    """
-    return {
-        'token': token,
-        'id': user.id,
-        'username': user.username
-    }

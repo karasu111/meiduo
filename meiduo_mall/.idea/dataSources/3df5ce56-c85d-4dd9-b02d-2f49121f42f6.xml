@@ -9,11 +9,12 @@
     </root>
     <schema id="2" parent="1" name="information_schema">
       <Collation>utf8_general_ci</Collation>
+      <Substituted>1</Substituted>
     </schema>
     <schema id="3" parent="1" name="meiduo_28">
       <Current>1</Current>
-      <Visible>1</Visible>
       <Collation>utf8_general_ci</Collation>
+      <Visible>1</Visible>
     </schema>
     <collation id="4" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
@@ -1000,13 +1001,11 @@ permission_id</ColNames>
     </key>
     <foreign-key id="267" parent="227" name="auth_group_permissions_group_id_b120cbf9_fk_auth_group_id">
       <ColNames>group_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>auth_group</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="268" parent="227" name="auth_group_permissio_permission_id_84c5c92e_fk_auth_perm">
       <ColNames>permission_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>auth_permission</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1053,7 +1052,6 @@ codename</ColNames>
     </key>
     <foreign-key id="276" parent="228" name="auth_permission_content_type_id_2f476e4b_fk_django_co">
       <ColNames>content_type_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>django_content_type</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1119,13 +1117,11 @@ codename</ColNames>
     </key>
     <foreign-key id="288" parent="229" name="django_admin_log_content_type_id_c4bce8eb_fk_django_co">
       <ColNames>content_type_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>django_content_type</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="289" parent="229" name="django_admin_log_user_id_c564eba6_fk_tb_users_id">
       <ColNames>user_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1327,25 +1323,21 @@ model</ColNames>
     </key>
     <foreign-key id="325" parent="233" name="tb_address_city_id_bcf28c8d_fk_tb_areas_id">
       <ColNames>city_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_areas</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="326" parent="233" name="tb_address_district_id_d2c72fb7_fk_tb_areas_id">
       <ColNames>district_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_areas</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="327" parent="233" name="tb_address_province_id_408b3227_fk_tb_areas_id">
       <ColNames>province_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_areas</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="328" parent="233" name="tb_address_user_id_476bb898_fk_tb_users_id">
       <ColNames>user_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1378,7 +1370,6 @@ model</ColNames>
     </key>
     <foreign-key id="334" parent="234" name="tb_areas_parent_id_bae67575_fk_tb_areas_id">
       <ColNames>parent_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_areas</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1512,7 +1503,6 @@ model</ColNames>
     </key>
     <foreign-key id="357" parent="237" name="tb_content_category_id_c6e5ac73_fk_tb_content_category_id">
       <ColNames>category_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_content_category</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1593,7 +1583,6 @@ model</ColNames>
     </key>
     <foreign-key id="371" parent="239" name="tb_goods_category_parent_id_5abc16fa_fk_tb_goods_category_id">
       <ColNames>parent_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_goods_category</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1655,13 +1644,11 @@ model</ColNames>
     </key>
     <foreign-key id="382" parent="240" name="tb_goods_channel_ibfk_1">
       <ColNames>group_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_channel_group</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="383" parent="240" name="tb_goods_channel_category_id_8e1b1d82_fk_tb_goods_category_id">
       <ColNames>category_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_goods_category</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1713,7 +1700,6 @@ model</ColNames>
     </key>
     <foreign-key id="392" parent="241" name="tb_goods_visit_category_id_b3e36237_fk_tb_goods_category_id">
       <ColNames>category_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_goods_category</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1763,7 +1749,6 @@ model</ColNames>
     </key>
     <foreign-key id="401" parent="242" name="tb_oauth_qq_user_id_224e6255_fk_tb_users_id">
       <ColNames>user_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1849,13 +1834,11 @@ model</ColNames>
     </key>
     <foreign-key id="416" parent="243" name="tb_order_goods_order_id_3cce2d8f_fk_tb_order_info_order_id">
       <ColNames>order_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_order_info</RefTableName>
       <RefColNames>order_id</RefColNames>
     </foreign-key>
     <foreign-key id="417" parent="243" name="tb_order_goods_sku_id_e335e3b1_fk_tb_sku_id">
       <ColNames>sku_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_sku</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1934,13 +1917,11 @@ model</ColNames>
     </key>
     <foreign-key id="431" parent="244" name="tb_order_info_address_id_7e00bc8d_fk_tb_address_id">
       <ColNames>address_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_address</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="432" parent="244" name="tb_order_info_user_id_e662f1ad_fk_tb_users_id">
       <ColNames>user_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -1994,7 +1975,6 @@ model</ColNames>
     </key>
     <foreign-key id="442" parent="245" name="tb_payment_order_id_e3bfc510_fk_tb_order_info_order_id">
       <ColNames>order_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_order_info</RefTableName>
       <RefColNames>order_id</RefColNames>
     </foreign-key>
@@ -2103,13 +2083,11 @@ model</ColNames>
     </key>
     <foreign-key id="461" parent="246" name="tb_sku_category_id_23dd76b7_fk_tb_goods_category_id">
       <ColNames>category_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_goods_category</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="462" parent="246" name="tb_sku_spu_id_fa5267c2_fk_tb_spu_id">
       <ColNames>spu_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_spu</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -2155,7 +2133,6 @@ model</ColNames>
     </key>
     <foreign-key id="470" parent="247" name="tb_sku_image_sku_id_8c6d7195_fk_tb_sku_id">
       <ColNames>sku_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_sku</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -2215,19 +2192,16 @@ model</ColNames>
     </key>
     <foreign-key id="481" parent="248" name="tb_sku_specification_option_id_80a17a3d_fk_tb_specifi">
       <ColNames>option_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_specification_option</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="482" parent="248" name="tb_sku_specification_sku_id_10aee5ae_fk_tb_sku_id">
       <ColNames>sku_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_sku</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="483" parent="248" name="tb_sku_specification_spec_id_5aa6db0c_fk_tb_spu_specification_id">
       <ColNames>spec_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_spu_specification</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -2273,7 +2247,6 @@ model</ColNames>
     </key>
     <foreign-key id="491" parent="249" name="tb_specification_opt_spec_id_3f11adee_fk_tb_spu_specification">
       <ColNames>spec_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_spu_specification</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -2379,25 +2352,21 @@ model</ColNames>
     </key>
     <foreign-key id="510" parent="250" name="tb_spu_brand_id_5c5be571_fk_tb_brand_id">
       <ColNames>brand_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_brand</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="511" parent="250" name="tb_spu_category1_id_49c4fab9_fk_tb_goods_category_id">
       <ColNames>category1_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_goods_category</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="512" parent="250" name="tb_spu_category2_id_ea351ced_fk_tb_goods_category_id">
       <ColNames>category2_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_goods_category</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="513" parent="250" name="tb_spu_category3_id_d3ea8415_fk_tb_goods_category_id">
       <ColNames>category3_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_goods_category</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -2443,7 +2412,6 @@ model</ColNames>
     </key>
     <foreign-key id="521" parent="251" name="tb_spu_specification_spu_id_41f4eda6_fk_tb_spu_id">
       <ColNames>spu_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_spu</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -2559,7 +2527,6 @@ model</ColNames>
     </key>
     <foreign-key id="542" parent="252" name="tb_users_default_address_id_66bcaaa0_fk_tb_address_id">
       <ColNames>default_address_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_address</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -2604,13 +2571,11 @@ group_id</ColNames>
     </key>
     <foreign-key id="550" parent="253" name="tb_users_groups_user_id_5f9e3ed0_fk_tb_users_id">
       <ColNames>user_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="551" parent="253" name="tb_users_groups_group_id_04d64563_fk_auth_group_id">
       <ColNames>group_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>auth_group</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
@@ -2655,13 +2620,11 @@ permission_id</ColNames>
     </key>
     <foreign-key id="559" parent="254" name="tb_users_user_permissions_user_id_2726c819_fk_tb_users_id">
       <ColNames>user_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>tb_users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="560" parent="254" name="tb_users_user_permis_permission_id_b9b3ac94_fk_auth_perm">
       <ColNames>permission_id</ColNames>
-      <RefSchemaName>meiduo_28</RefSchemaName>
       <RefTableName>auth_permission</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>

@@ -28,7 +28,7 @@ SECRET_KEY = 'a@70f%=f2j7qf%)84v0fca78h02-lk&0s^hbn82hw68c6t$5yg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.meiduo.site']
+ALLOWED_HOSTS = ['www.meiduo.site','127.0.0.1','localhost']
 
 
 # Application definition
@@ -49,14 +49,23 @@ INSTALLED_APPS = [
     'payment.apps.PaymentConfig',
     'django_crontab', # 定时任务
 
-    'corsheaders',
+    'corsheaders',  # CORS
+    'rest_framework',
+
+    'meiduo_admin.apps.MeiduoAdminConfig',
+
+
 ]
 
+# from corsheaders.middleware import CorsMiddleware #方便看路径
+
 MIDDLEWARE = [
+    #放在首行
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -181,14 +190,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
-
+#开启django‘时区’功能，保存数据库中的关于日期的数据，会统一转化成UTC（0时区）时间
 USE_TZ = True
 
 
@@ -274,7 +283,7 @@ EMAIL_VERIFY_URL = 'http://www.meiduo.site:8000/emails/verification/'
 
 
 #指定文件存储远程主机域名端口
-# MEDIA_URL= 'http://192.168.146.130:8888/'
+# MEDIA_URL= 'http://192.168.182.128:8888/'
 DEFAULT_FILE_STORAGE = 'meiduo_mall.utils.fastdfs.fdfs_storage.FastDFSStorage'
 
 
@@ -301,26 +310,32 @@ CRONTAB_COMMAND_PREFIX = 'LANG_ALL=zh_cn.UTF-8'# 防止中文出问题
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
 
-
+#CORS白名单
 CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:8080',
-    'localhost:8080',
-    'www.meiduo.site:8080',
-    'api.meiduo.site:8000'
+
 )
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication', #token认证
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
 
+#2019-8-2 12:05:55 -->时间点（时刻） --> detetime(2019,8,3)时间点对象
+# datetime(2019,8,3) - datetime(2019,8,2) --> timedelta(days=1)
+#3天 --> 时间段 （一段时间） --> timedelta（days=1） --> '一天‘
+
+
 # JWT配置
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'meiduo_admin.utils.jwt_response.jwt_response_payload_handler',
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'meiduo_admin.utils.jwt_response.jwt_response_payload_handler',#指明构建响应数据的函数
 }
+
+#JWT_EXPIRATION_DELTA指明令牌的有效期
+

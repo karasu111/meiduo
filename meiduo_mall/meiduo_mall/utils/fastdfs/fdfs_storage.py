@@ -31,4 +31,4 @@ class FastDFSStorage(Storage):
 
 
         """
-        return 'http://192.168.146.130:8888/'+ name
+        return 'http://192.168.182.128:8888/'+ name
